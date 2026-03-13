@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ECE Farewell Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-family:Poppins;
+text-align:center;
+color:white;
+background:linear-gradient(135deg,#ff9ecf,#ff4da6,#ff0080);
+background-size:400% 400%;
+animation:bgmove 8s infinite alternate;
+overflow:hidden;
+}
+
+@keyframes bgmove{
+0%{background-position:left;}
+100%{background-position:right;}
+}
+
+.section{
+display:none;
+height:100%;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+#count{
+font-family:Orbitron;
+font-size:260px;
+text-shadow:0 0 25px white;
+}
+
+h1{font-size:48px;}
+h2{font-size:34px;}
+h3{font-size:28px;}
+
+.page{
+background:white;
+padding:15px;
+border-radius:15px;
+width:430px;
+height:360px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+box-shadow:0 15px 35px rgba(0,0,0,0.3);
+transform-origin:left;
+animation:flipPage 0.8s ease;
+}
+
+.page img{
+width:100%;
+height:280px;
+object-fit:contain;
+border-radius:12px;
+background:white;
+}
+
+.page p{
+margin-top:10px;
+font-size:20px;
+font-style:italic;
+color:#444;
+}
+
+@keyframes flipPage{
+0%{transform:rotateY(-180deg);opacity:0;}
+50%{transform:rotateY(20deg);}
+100%{transform:rotateY(0);opacity:1;}
+}
+
+#flipBtn{
+position:fixed;
+bottom:40px;
+left:50%;
+transform:translateX(-50%);
+padding:25px 60px;
+font-size:30px;
+font-weight:bold;
+border:none;
+border-radius:18px;
+background:#ff0080;
+color:white;
+cursor:pointer;
+box-shadow:0 15px 35px rgba(0,0,0,0.5);
+}
+
+.cap{
+position:fixed;
+top:-50px;
+font-size:40px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px) rotate(0);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
+
+.flower{
+position:fixed;
+top:-50px;
+font-size:24px;
+animation:flowerFall linear forwards;
+}
+
+@keyframes flowerFall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(110vh);}
+}
+
+.glow{
+font-size:70px;
+font-weight:bold;
+text-shadow:
+0 0 10px #fff,
+0 0 20px #ff4da6,
+0 0 40px #ff0080,
+0 0 60px #ff0080;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="count">5</div>
+
+<div id="wait" class="section">
+<h1>✨ Wait for it…</h1>
+<h2>Something special is coming ✨</h2>
+</div>
+
+<div id="welcome" class="section">
+<h1>🎓 Welcome To The Farewell</h1>
+<h2>Welcoming Our Beloved ECE Seniors</h2>
+<h3>(2022 – 2026)</h3>
+</div>
+
+<div id="event" class="section">
+<h2>📍 Venue</h2>
+<h3>Vishveshwarya Bhavan</h3>
+<h3>Seminar Hall</h3>
+<h2>📅 Date</h2>
+<h3>16/3/2026 (Monday)</h3>
+</div>
+
+<div id="bookSection" class="section">
+<h1>📖 Memories</h1>
+<div id="memory"></div>
+<button id="flipBtn" onclick="nextPage()">Flip Page ➜</button>
+</div>
+
+<div id="message" class="section">
+<h1>💌 Message For Seniors</h1>
+<p>
+Dear Seniors,<br><br>
+Thank you for the memories and guidance.<br>
+These moments will stay with us forever.<br><br>
+Wishing you success in everything ahead.<br><br>
+With love,<br>
+Your Juniors ❤️
+</p>
+</div>
+
+<div id="final" class="section">
+<h1 class="glow">SAYONARA 2026</h1>
+<h2>💖 We Will Miss You Seniors 💖</h2>
+</div>
+
+<script>
+
+let num=5;
+let counter=document.getElementById("count");
+
+let timer=setInterval(function(){
+
+num--;
+counter.innerHTML=num;
+
+if(num==0){
+
+clearInterval(timer);
+counter.style.display="none";
+
+showSection("wait");
+
+setTimeout(()=>showSection("welcome"),1500);
+setTimeout(()=>showSection("event"),3000);
+setTimeout(()=>showSection("bookSection"),4500);
+setTimeout(startMemories,4500);
+
+}
+
+},1000);
+
+function showSection(id){
+document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+document.getElementById(id).style.display="flex";
+}
+
+let memories=[
+
+{img:"image1.jpeg",quote:"Some memories last forever"},
+{img:"image2.jpeg",quote:"Some memories last forever"},
+{img:"image3.jpeg",quote:"Some memories last forever"},
+{img:"image4.jpeg",quote:"Some memories last forever"},
+{img:"image5.jpeg",quote:"Some memories last forever"},
+{img:"image6.jpeg",quote:"Some memories last forever"},
+{img:"image7.jpeg",quote:"Some memories last forever"},
+{img:"image8.jpeg",quote:"Some memories last forever"},
+{img:"image9.jpeg",quote:"Some memories last forever"}
+
+];
+
+let index=0;
+
+function startMemories(){
+showImage();
+}
+
+function showImage(){
+
+document.getElementById("memory").innerHTML =
+'<div class="page"><img src="'+memories[index].img+'"><p>'+memories[index].quote+'</p></div>';
+
+}
+
+function nextPage(){
+
+index++;
+
+if(index < memories.length){
+
+showImage();
+
+}
+else{
+
+document.getElementById("flipBtn").style.display="none";
+
+setTimeout(()=>showSection("message"),1000);
+setTimeout(showFinal,10000);
+
+}
+
+}
+
+function showFinal(){
+
+showSection("final");
+
+for(let i=0;i<25;i++){
+
+let cap=document.createElement("div");
+
+cap.className="cap";
+cap.innerHTML="🎓";
+
+cap.style.left=Math.random()*100+"vw";
+cap.style.animationDuration=(3+Math.random()*3)+"s";
+
+document.body.appendChild(cap);
+
+}
+
+}
+
+function createFlower(){
+
+let flower=document.createElement("div");
+
+flower.className="flower";
+flower.innerHTML="🌸";
+
+flower.style.left=Math.random()*100+"vw";
+flower.style.animationDuration=(4+Math.random()*4)+"s";
+
+document.body.appendChild(flower);
+
+setTimeout(()=>flower.remove(),8000);
+
+}
+
+setInterval(createFlower,800);
+
+</script>
+
+</body>
+</html>
